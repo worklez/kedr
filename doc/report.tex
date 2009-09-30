@@ -7,7 +7,9 @@
 \usepackage{cmap} % only with pdftex
 \usepackage{indentfirst}
 \usepackage{color}
-\usepackage{geometry}
+%\usepackage{geometry}
+\usepackage[left=3cm,top=2cm,bottom=2cm,right=1cm,nohead,nofoot]{geometry}
+\usepackage{svninfo}
 
 \providecommand{\comment}[1]{\textcolor{blue}{#1}}
 \providecommand{\replace}[1]{\textcolor{green}{#1}}
@@ -15,21 +17,26 @@
 \renewcommand{\thesection}{\arabic{section}}
 
 
-\geometry{verbose,a4paper}
-\setlength{\headheight}{0pt}
-\setlength{\headsep}{0pt}
-\setlength{\topmargin}{-1.0cm}
-\setlength{\textheight}{25.0cm}
-\setlength{\textwidth}{17.6cm}
-\setlength{\oddsidemargin}{0cm}
-\setlength{\evensidemargin}{0pt}
-\setlength{\marginparsep}{0pt}
-\setlength{\marginparpush}{0pt}
-\parindent=15mm
-\setlength{\leftmargini}{\parindent}
-\addtolength{\leftmargini}{4mm}
-\setlength{\headheight}{0pt}
-\setlength{\headsep}{0pt}
+%\geometry{verbose,a4paper}
+%\setlength{\headheight}{0pt}
+%\setlength{\headsep}{0pt}
+%\setlength{\topmargin}{-1.0cm}
+%\setlength{\textheight}{25.0cm}
+%\setlength{\textwidth}{17.6cm}
+%\setlength{\oddsidemargin}{0cm}
+%\setlength{\evensidemargin}{0pt}
+%\setlength{\marginparsep}{0pt}
+%\setlength{\marginparpush}{0pt}
+%%\parindent=15mm
+%\setlength{\leftmargini}{\parindent}
+%\addtolength{\leftmargini}{4mm}
+%\setlength{\headheight}{0pt}
+%\setlength{\headsep}{0pt}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\svnInfo $Id$ 
 
 \begin{document}
 
@@ -49,7 +56,7 @@
 	\textbf{группа 7201}
 	}
 \\[1cm]
-	{\large \textbf{Версия 0.0.1}}
+	{\large \textbf{Версия 0.\svnInfoRevision}}
 \end{flushright}
 \end{titlepage}
 
@@ -74,7 +81,7 @@
 \begin{tabular}{|p{4cm}|p{10cm}|} \hline
 Термин & Описание \\ \hline
 GNU/Linux, Mac OS X, Windows & ОС, поддерживаемые Sun JVM \\ \hline
-Java SWING & Инструментарий для создания графических прилежний на Java \\ \hline
+Java Swing & Инструментарий для создания графических приложений на Java \\ \hline
 JVM & Java Virtual Machine --- виртуальная машина Java, среда исполнения Java-программ \\ \hline
 MusicBrainz & Открытая музыкальная энциклопедия (база данных) \\ \hline
 MusicDNS    & Сервис звуковых отпечатков (база данных) \\ \hline
@@ -192,7 +199,7 @@ PUID & Portable Unique IDentifier, уникальный идентификато
 \begin{itemize}
 	\item Мультиплатформенность: поддержка ОС GNU/Linux, Mac OS X, Windows на архитектурах x86, x86\_64
 	\item Поддержка: необходима поддержка взаимодействия с интерфейсами сторонних БД
-	\item Наличие графического интерфейса: графический интерфейс {\it Java SWING}
+	\item Наличие графического интерфейса: графический интерфейс {\it Java Swing}
 \end{itemize}
 
 \end{document}
