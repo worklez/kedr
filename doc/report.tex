@@ -7,7 +7,6 @@
 \usepackage{cmap} % only with pdftex
 \usepackage{indentfirst}
 \usepackage{color}
-%\usepackage{geometry}
 \usepackage[left=3cm,top=2cm,bottom=2cm,right=1cm,nohead,nofoot]{geometry}
 \usepackage[nofancy]{svninfo}
 
@@ -16,25 +15,17 @@
 
 \renewcommand{\thesection}{\arabic{section}}
 
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
 
-%\geometry{verbose,a4paper}
-%\setlength{\headheight}{0pt}
-%\setlength{\headsep}{0pt}
-%\setlength{\topmargin}{-1.0cm}
-%\setlength{\textheight}{25.0cm}
-%\setlength{\textwidth}{17.6cm}
-%\setlength{\oddsidemargin}{0cm}
-%\setlength{\evensidemargin}{0pt}
-%\setlength{\marginparsep}{0pt}
-%\setlength{\marginparpush}{0pt}
-%%\parindent=15mm
-%\setlength{\leftmargini}{\parindent}
-%\addtolength{\leftmargini}{4mm}
-%\setlength{\headheight}{0pt}
-%\setlength{\headsep}{0pt}
-
-\setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 \svnInfo $Id$ 
 
@@ -201,5 +192,31 @@ PUID & Portable Unique IDentifier, уникальный идентификато
 	\item Поддержка: необходима поддержка взаимодействия с интерфейсами сторонних БД
 	\item Наличие графического интерфейса: графический интерфейс {\it Java Swing}
 \end{itemize}
+
+\section{Обзор архитектуры}
+Этот раздел описывает архитектуру системы.
+
+\setcounter{subsection}{1}
+\subsubsection{Компонентная модель системы}
+\comment{[Здесь приводится Component diagram  - диаграмма компонентов системы, со связями между компонентами  и интерфейсами между ними, а также описание их взаимодействия. Для каждого компонента дается краткое описание его места и предназначения в системе]}
+
+\paragraph{Компонент 1}
+\comment{[Здесь приводится более подробное описание предназначения компонента и Package diagram – диаграмма пакетов, из которых состоит данный компонент. Обязательно выделение на диаграмме интерфейсов пакета, служащих для связи с другими пакетами (фасад пакета), а также ключевых классов, используемых другими пакетами в use-case реализациях]}
+
+
+\paragraph{Компонент 2}
+\comment{[Здесь приводится более подробное описание предназначения компонента и Package diagram – диаграмма пакетов, из которых состоит данный компонент. Обязательно выделение на диаграмме интерфейсов пакета, служащих для связи с другими пакетами (фасад пакета), а также ключевых классов, используемых другими пакетами в use-case реализациях]}
+
+\subsubsection{Компоненты сторонних производителей}
+\comment{[Здесь приводится список использованных компонент сторонних производителей, использованных при разработке системы, с указанием их предназначения в системе]}
+
+\subsubsection{Схема развертывания приложения}
+\comment{[Здесь приводится Deployment diagram  - диаграмма развертывания системы, со связями между узлами и указанием способа связи (протокола). На диаграмме обязательно указать, какие компоненты находятся на том или ином узле]}
+
+\section{Допущения и ограничения}
+\comment{[Краткое описание допущений,  которые подразумевает данный проект, и любых ограничений (например, по бюджету, участникам, требуемому оборудованию, срокам и т.п.), накладываемых на его выполнение.]}
+
+\replace{Пример: При разработке проекта принято допущение, что число транзакций в единицу времени значительно (более чем  в 10 раз) снижается в ночное время, что позволяет в период с 01:00 до 6:00 производить автоматическое обновление программного обеспечения системы, требующее полной перезагрузки и остановки сервиса на период до 5 минут.}
+
 
 \end{document}
