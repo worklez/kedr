@@ -1,0 +1,11 @@
+ffmpeg:
+
+IContainer readPacket -> IPacket -> IStreamCoder.decodeAudio -> 
+IAudioSamples -> int getSample(long sampleIndex, int channel, IAudioSamples.Format format) -> 
+135 times for each channel or so on -> ... -> PROFIT!!!
+
+http://build.xuggle.com/view/Stable/job/xuggler_jdk5_stable/javadoc/java/api/com/xuggle/xuggler/IContainer.html
+http://build.xuggle.com/view/Stable/job/xuggler_jdk5_stable/javadoc/java/api/com/xuggle/xuggler/IPacket.html
+http://build.xuggle.com/view/Stable/job/xuggler_jdk5_stable/javadoc/java/api/com/xuggle/xuggler/IStreamCoder.html
+
+ALSO: http://fmj-sf.net/ is ****en undocumented deprecated ****en stuff
