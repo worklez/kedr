@@ -3,7 +3,6 @@ package org.treblefrei.ofa;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
-import org.treblefrei.audio.AudioDecoder;
 import org.treblefrei.audio.AudioDecoderException;
 import org.treblefrei.audio.DecodedAudioData;
 
@@ -28,8 +27,7 @@ public class Ofa {
         return COfa.instance.ofa_create_print(samples, 0, nlSize, sRate, stereo);
     }
 
-    static String createPrint(String filename) throws AudioDecoderException, FileNotFoundException {
-            DecodedAudioData data = AudioDecoder.getSamples(filename, 135);
+    static String createPrint(DecodedAudioData data) throws AudioDecoderException, FileNotFoundException {
             int channels = data.getChannels();
             if (channels > 2) {
                 throw new RuntimeException("too many audio channels");

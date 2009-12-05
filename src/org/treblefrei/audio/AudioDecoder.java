@@ -1,11 +1,6 @@
 package org.treblefrei.audio;
 
-import com.xuggle.xuggler.IAudioSamples;
-import com.xuggle.xuggler.ICodec;
-import com.xuggle.xuggler.IContainer;
-import com.xuggle.xuggler.IPacket;
-import com.xuggle.xuggler.IStream;
-import com.xuggle.xuggler.IStreamCoder;
+import com.xuggle.xuggler.*;
 
 import java.io.FileNotFoundException;
 import java.util.logging.Level;
@@ -53,6 +48,8 @@ public class AudioDecoder {
         int sampleRate = audioCoder.getSampleRate();
         int samplesToRead = seconds * channels * sampleRate;
         long duration = (long)(1000 * audioStream.getDuration() * audioStream.getTimeBase().getDouble());
+
+        String format = audioCoder.getCodec().getName();
 
         byte[] decodedData = new byte[samplesToRead * 2];
 
@@ -111,7 +108,7 @@ public class AudioDecoder {
 
         container.close();
 
-        return new DecodedAudioData(channels, sampleRate, decodedData, duration);
+        return new DecodedAudioData(channels, sampleRate, decodedData, duration, format);
     }
 
     public static void main(String[] args) {
