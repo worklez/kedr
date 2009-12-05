@@ -52,6 +52,7 @@ public class AudioDecoder {
         int channels = audioCoder.getChannels();
         int sampleRate = audioCoder.getSampleRate();
         int samplesToRead = seconds * channels * sampleRate;
+        long duration = (long)(1000 * audioStream.getDuration() * audioStream.getTimeBase().getDouble());
 
         byte[] decodedData = new byte[samplesToRead * 2];
 
@@ -110,7 +111,7 @@ public class AudioDecoder {
 
         container.close();
 
-        return new DecodedAudioData(channels, sampleRate, decodedData);
+        return new DecodedAudioData(channels, sampleRate, decodedData, duration);
     }
 
     public static void main(String[] args) {

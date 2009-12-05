@@ -8,10 +8,11 @@ package org.treblefrei.audio;
  */
 public class DecodedAudioData {
 
-    public DecodedAudioData(int channels, int sampleRate, byte[] data) {
+    public DecodedAudioData(int channels, int sampleRate, byte[] data, long duration) {
         this.channels = channels;
         this.sampleRate = sampleRate;
         this.data = data;
+        this.duration = duration;
     }
 
 
@@ -27,7 +28,12 @@ public class DecodedAudioData {
         return data;
     }
 
+    public long getDuration() {
+        return duration;
+    }
+
     private int channels;
     private int sampleRate;
     private byte []data;
+    private long duration;
 }
