@@ -37,7 +37,7 @@ public class AudioDecoder {
         return audioStream;
     }
 
-    public static byte[] getSamples(String filename, int seconds) throws FileNotFoundException, AudioDecoderException {
+    public static DecodedAudioData getSamples(String filename, int seconds) throws FileNotFoundException, AudioDecoderException {
         IContainer container = IContainer.make();
 
         if (container.open(filename, IContainer.Type.READ, null) < 0) {
@@ -110,12 +110,12 @@ public class AudioDecoder {
 
         container.close();
 
-        return decodedData;
+        return new DecodedAudioData(channels, sampleRate, decodedData);
     }
 
     public static void main(String[] args) {
         try {
-            //AudioDecoder.getSamples("1.flac", 135);
+            AudioDecoder.getSamples("1.flac", 135);
             AudioDecoder.getSamples("2.mp3", 135);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AudioDecoder.class.getName()).log(Level.SEVERE, null, ex);
