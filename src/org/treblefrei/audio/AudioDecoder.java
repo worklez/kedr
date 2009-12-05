@@ -63,8 +63,10 @@ public class AudioDecoder {
 
         //System.err.println("samplesToRead="+samplesToRead);
 
+        boolean finished = false;
+
         try {
-            while (container.readNextPacket(packet) >= 0) {
+            while (container.readNextPacket(packet) >= 0 && !finished) {
 
                 if (packet.getStreamIndex() == audioStreamId) {
                     int offset = 0;
@@ -91,6 +93,7 @@ public class AudioDecoder {
                             } else {
                                 System.arraycopy(rawBytes, 0, decodedData, position,
                                         decodedData.length - position);
+                                finished = true;
                                 break;
                             }
 
@@ -112,8 +115,8 @@ public class AudioDecoder {
 
     public static void main(String[] args) {
         try {
-            AudioDecoder.getSamples("1.flac", 135);
-            //AudioDecoder.getSamples("2.mp3", 135);
+            //AudioDecoder.getSamples("1.flac", 135);
+            AudioDecoder.getSamples("2.mp3", 135);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AudioDecoder.class.getName()).log(Level.SEVERE, null, ex);
         } catch (AudioDecoderException ex) {
