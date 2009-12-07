@@ -1,4 +1,4 @@
-package org.treblefrei.ofa;
+package org.treblefrei.musicdns.ofa;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -21,13 +21,13 @@ interface COfa extends Library {
 }
 
 public class Ofa {
-    static String createPrint(byte[] samples, int sRate, int stereo) {
+    public static String createPrint(byte[] samples, int sRate, int stereo) {
         NativeLong nlSize = new NativeLong(samples.length);
         // LITTLE_ENDIAN = 0, BIG_ENDIAN = 1
         return COfa.instance.ofa_create_print(samples, 0, nlSize, sRate, stereo);
     }
 
-    static String createPrint(DecodedAudioData data) throws AudioDecoderException, FileNotFoundException {
+    public static String createPrint(DecodedAudioData data) throws AudioDecoderException, FileNotFoundException {
             int channels = data.getChannels();
             if (channels > 2) {
                 throw new RuntimeException("too many audio channels");
