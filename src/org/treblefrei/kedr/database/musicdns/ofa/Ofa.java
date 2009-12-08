@@ -1,4 +1,4 @@
-package org.treblefrei.musicdns.ofa;
+package org.treblefrei.kedr.database.musicdns.ofa;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;

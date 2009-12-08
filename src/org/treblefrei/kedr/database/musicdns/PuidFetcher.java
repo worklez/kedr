@@ -1,9 +1,9 @@
-package org.treblefrei.musicdns;
+package org.treblefrei.kedr.database.musicdns;
 
-import org.treblefrei.audio.AudioDecoder;
 import org.treblefrei.audio.AudioDecoderException;
-import org.treblefrei.audio.DecodedAudioData;
-import org.treblefrei.musicdns.ofa.Ofa;
+import org.treblefrei.kedr.database.Puid;
+import org.treblefrei.kedr.model.Album;
+import org.treblefrei.kedr.model.Track;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -16,16 +16,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
-
-/**
- * Created by IntelliJ IDEA.
- * User: worklez
- * Date: 07.12.2009
- * Time: 14:22:02
- */
+import java.util.Map;
 
 public class PuidFetcher {
     private static String clientId = "a7f6063296c0f1c9b75c7f511861b89b";
@@ -51,10 +45,12 @@ public class PuidFetcher {
         "\r\n";
 
     // FIXME: ought to take an Album
-    public static List<String> fetchPuids(String filename) throws AudioDecoderException, IOException, XPathExpressionException, ParserConfigurationException, SAXException {
-            DecodedAudioData audioData = AudioDecoder.getSamples(filename, 135);
-            String fingerPrint = Ofa.createPrint(audioData);
+    public static Map<Track, List<Puid>> fetchPuids(Album album) throws AudioDecoderException, IOException, XPathExpressionException, ParserConfigurationException, SAXException {
+        List<Track> tracks = album.getTracks();
+        Map<Track, List<Puid>> albumPuids = new HashMap<Track, List<Puid>>();
+        Map<Track, Digest> fingerPrints = DigestMaker.getAlbumDigest(album);
 
+        for (Track track : tracks) {
             URL url = new URL(queryUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
@@ -62,19 +58,22 @@ public class PuidFetcher {
             conn.setDoOutput(true);
 
             String query = String.format(queryFormat,
-                    clientId, clientVersion, fingerPrint, 0, 0, audioData.getFormat(), audioData.getDuration(),
+                    clientId, clientVersion, fingerPrints.get(track).getDigest(),
+                    0, 0, track.getFormat(), track.getDuration(),
                     "unknown", "unknown", "unknown", 0, "unknown", 0, "");
 
             System.out.println("Query: " + query);
 
             conn.getOutputStream().write(query.getBytes());
 
-            List<String> puids = parseXml(conn.getInputStream());
+            List<Puid> puids = parseXml(conn.getInputStream());
             conn.disconnect();
-        return puids;
+            albumPuids.put(track, puids);
+        }
+        return albumPuids;
     }
 
-    public static List<String> parseXml(InputStream is) throws ParserConfigurationException, XPathExpressionException, IOException, SAXException {
+    public static List<Puid> parseXml(InputStream is) throws ParserConfigurationException, XPathExpressionException, IOException, SAXException {
         DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
         // domFactory.setNamespaceAware(true); // never forget this!
         DocumentBuilder builder = domFactory.newDocumentBuilder();
@@ -90,13 +89,13 @@ public class PuidFetcher {
 //        System.out.println(nodes.toString());
 //        System.out.println(nodes.getLength());
 
-        List<String> puids = new LinkedList<String>();
+        List<Puid> puids = new LinkedList<Puid>();
         for (int i = 0; i < nodes.getLength(); i++) {
             String id = nodes.item(i).getAttributes().getNamedItem("id").getNodeValue();
-            puids.add(id);
+            puids.add(new Puid(id));
             System.out.println(id);
         }
         return puids;
     }
-
 }
+ 
