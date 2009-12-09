@@ -6,6 +6,10 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author ripper
+ */
 public class AudioDecoder {
 
     private static final int READ_BUFFER_SIZE = 1024;

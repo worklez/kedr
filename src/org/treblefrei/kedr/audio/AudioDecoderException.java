@@ -7,7 +7,7 @@ package org.treblefrei.kedr.audio;
 
 /**
  *
- * @author gleb
+ * @author ripper
  */
 public class AudioDecoderException extends Exception {
 
