@@ -3,8 +3,8 @@ package org.treblefrei.kedr.database.musicdns.ofa;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLong;
-import org.treblefrei.audio.AudioDecoderException;
-import org.treblefrei.audio.DecodedAudioData;
+import org.treblefrei.kedr.audio.AudioDecoderException;
+import org.treblefrei.kedr.audio.DecodedAudioData;
 
 import java.io.FileNotFoundException;
 

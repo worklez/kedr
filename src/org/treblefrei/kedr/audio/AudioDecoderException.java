@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.treblefrei.audio;
+package org.treblefrei.kedr.audio;
 
 /**
  *

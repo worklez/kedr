@@ -1,4 +1,4 @@
-package org.treblefrei.audio;
+package org.treblefrei.kedr.audio;
 
 /**
  * Created by IntelliJ IDEA.

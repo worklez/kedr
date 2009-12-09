@@ -1,6 +1,6 @@
 package org.treblefrei.kedr.database.musicdns;
 
-import org.treblefrei.audio.AudioDecoderException;
+import org.treblefrei.kedr.audio.AudioDecoderException;
 import org.treblefrei.kedr.database.Puid;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Track;

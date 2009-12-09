@@ -1,8 +1,8 @@
 package org.treblefrei.kedr.database.musicdns;
 
-import org.treblefrei.audio.AudioDecoder;
-import org.treblefrei.audio.AudioDecoderException;
-import org.treblefrei.audio.DecodedAudioData;
+import org.treblefrei.kedr.audio.AudioDecoder;
+import org.treblefrei.kedr.audio.AudioDecoderException;
+import org.treblefrei.kedr.audio.DecodedAudioData;
 import org.treblefrei.kedr.database.musicdns.ofa.Ofa;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Track;
