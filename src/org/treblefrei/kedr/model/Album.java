@@ -9,12 +9,15 @@ public class Album {
  
 	private List<Track> tracks;
 	 
-	private Updatable parent;
+	private List<Updatable> updatables;
 
     private String title;
 
-    public Album() {
+    // There could not be album without any title!
+    public Album(String title) {
+        this.title = title;
         tracks = new LinkedList<Track>();
+        updatables = new LinkedList<Updatable>();        
     }
 
 	public boolean sync(Album target) {
@@ -27,6 +30,7 @@ public class Album {
 
     public void addTrack(Track track) {
         tracks.add(track);
+        notifyUpdatables();
     }
 
     public String getTitle() {
@@ -35,6 +39,18 @@ public class Album {
 
     public void setTitle(String title) {
         this.title = title;
+        notifyUpdatables();
     }
+
+    private void notifyUpdatables() {
+        for (Updatable updatable : updatables)
+            updatable.perfomed();
+    }
+
+
+    public void addUpdatable(Updatable uptable) {
+        updatables.add(uptable);
+    }
+
 }
  

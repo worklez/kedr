@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class Main {
         public static void main(String args[]) throws IOException, SAXException, XPathExpressionException, ParserConfigurationException {
         try {
-            Album album = new Album();
+            Album album = new Album("Foo");
 
             Track track1 = new Track();
             Track track2 = new Track();

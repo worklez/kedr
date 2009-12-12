@@ -3,13 +3,17 @@ package org.treblefrei.kedr.gui.qt;
 import com.trolltech.qt.core.QDir;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.*;
+import org.treblefrei.kedr.filesystem.AlbumLoader;
 import org.treblefrei.kedr.model.Album;
+import org.treblefrei.kedr.model.Workspace;
+
+import javax.swing.filechooser.FileSystemView;
 
 public class QKedrMainWindow extends QMainWindow {
 
 	private QKedrAboutDialog aboutDialog;
 	private QKedrSettingsDialog settingsDialog;
-	private QKedrWorkspace workspace;
+	private QKedrWorkspace workspaceWidget;
 	private QKedrAlbumWindow albumWindow;
 	private QKedrAboutDialog qKedrAboutDialog;
 	private QKedrSettingsDialog qKedrSettingsDialog;
@@ -21,8 +25,10 @@ public class QKedrMainWindow extends QMainWindow {
     private QAction addNewAlbumAction;
 
     private QDir directory;
+    private QDockWidget dockWidget;
+    private Workspace workspace;
 
-	public void setSelectedAlbum(Album album) {
+    public void setSelectedAlbum(Album album) {
 
 	}
 
@@ -31,7 +37,9 @@ public class QKedrMainWindow extends QMainWindow {
 
         if (path.isEmpty() == false) {
             directory.setPath(path);
-            //TODO: get file list and pass to AlbumLoader
+            Album album = AlbumLoader.getAlbum(path);
+            if (album != null)
+                workspace.addAlbum(album);
             }
 	}
 
@@ -39,15 +47,48 @@ public class QKedrMainWindow extends QMainWindow {
 
 	}
 
-    public QKedrMainWindow(){
+    public QKedrMainWindow() {
         setMenuBar(new QMenuBar());
+        setMinimumSize(800, 600);
+        
+        initWorkspace();
 
         createActions();
         createMenu();
+        createWorkspaceWidget();
+        createAlbumWindow();
 
-        directory = new QDir();
+        // TODO: Make something with this crap in future versions
+        String defaultPath = FileSystemView.getFileSystemView().getDefaultDirectory().getAbsolutePath();
+        directory = new QDir(defaultPath);
     }
 
+    private boolean initWorkspace() {
+        workspace = new Workspace();
+
+        return true;
+    }
+    private boolean createAlbumWindow() {
+        albumWindow = new QKedrAlbumWindow();
+        setCentralWidget(albumWindow);
+
+        return true;
+    }
+    private boolean createWorkspaceWidget() {
+        dockWidget = new QDockWidget(tr("Workspace"), this);
+        dockWidget.setAllowedAreas(new Qt.DockWidgetAreas(
+                Qt.DockWidgetArea.RightDockWidgetArea.value() |
+                Qt.DockWidgetArea.LeftDockWidgetArea.value()
+        ));
+
+        workspaceWidget = new QKedrWorkspace(workspace);
+        dockWidget.setWidget(workspaceWidget);
+        dockWidget.setMinimumWidth(200);
+
+        addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, dockWidget);
+
+        return true;
+    }
     private boolean createActions() {
         aboutAction = new QAction(null, tr("&About"), this);
         aboutAction.setStatusTip(tr("Show KEDR's about dialog"));
@@ -63,8 +104,6 @@ public class QKedrMainWindow extends QMainWindow {
 
         return true;
     }
-
-
     private boolean createMenu() {
         QMenu fileMenu = menuBar().addMenu(tr("&File"));
         QMenu helpMenu = menuBar().addMenu(tr("&Help"));
@@ -83,14 +122,9 @@ public class QKedrMainWindow extends QMainWindow {
         return true;
     }
 
-
     public void run(String []args) {
-
         show();
-
-
     }
-
     public static void main(String []args) {
         QApplication.initialize(args);
         QKedrMainWindow mainWindow = new QKedrMainWindow();

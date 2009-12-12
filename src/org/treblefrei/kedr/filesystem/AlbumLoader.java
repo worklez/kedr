@@ -1,11 +1,30 @@
 package org.treblefrei.kedr.filesystem;
 
 import org.treblefrei.kedr.model.Album;
+import org.treblefrei.kedr.model.Track;
+
+import java.io.File;
 
 public class AlbumLoader {
  
 	public static Album getAlbum(String directory) {
-		return null;
+        File dir = new File(directory);
+        String []children = dir.list();
+
+        if (children == null)
+            return null;
+
+        String title = dir.getName();
+        Album album = new Album(title);
+
+        for (String filename : children) {
+            Track track = TrackLoader.getTrack(filename);
+
+            if (track != null)
+                album.addTrack(track);
+        }
+
+		return album;
 	}
 	 
 }

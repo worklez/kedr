@@ -1,0 +1,4 @@
+* Add QWidget as general of QKedrWorkspace to JUDE
+* Update JUDE about Album, now it has list of Updatable's, to notify them all,
+    the way that we had requires setParent method that is strange when some
+    object is calling such stuff
