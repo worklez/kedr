@@ -130,6 +130,7 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 
         trackList.setModel(trackListModel);
         trackList.horizontalHeader().show();
+        trackList.resizeColumnsToContents();
     }
 
     public void setAlbum(Album album) {

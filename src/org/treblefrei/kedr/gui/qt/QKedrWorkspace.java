@@ -45,10 +45,11 @@ public class QKedrWorkspace extends QDialog implements Updatable  {
     }
 
     private void changeAlbum(QListWidgetItem current, QListWidgetItem previous) {
-        
-        Album album = (Album) current.data(Qt.ItemDataRole.DisplayPropertyRole);
-        if (album != null)
-            selectedAlbumChanged.emit(album);
+        if (current != null) {
+            Album album = (Album) current.data(Qt.ItemDataRole.DisplayPropertyRole);
+            if (album != null)
+                selectedAlbumChanged.emit(album);
+            }
     }
 
 	/**
