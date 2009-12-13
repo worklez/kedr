@@ -49,15 +49,15 @@ public class TrackLoader {
             Tag tag = f.getTag();
             AudioHeader audioHeader = f.getAudioHeader();
 
-            int duration = audioHeader.getTrackLength();
+            int duration = audioHeader.getTrackLength() * 1000; // we need in msec!
             String artist = getTagStringValue(tag, FieldKey.ARTIST, "Unknown artist");
             String album = getTagStringValue(tag, FieldKey.ALBUM, "Unknown album");
             String format = audioHeader.getFormat();
-            String genre = getTagStringValue(tag, FieldKey.GENRE, "");;
+            String genre = getTagStringValue(tag, FieldKey.GENRE, "");
             String title = getTagStringValue(tag, FieldKey.TITLE, "Unknown track");
-            int totalTracks = getTagStringIntValue(tag, FieldKey.TRACK_TOTAL, 0);
-            int trackNumber = getTagStringIntValue(tag, FieldKey.TRACK, 0);
-            int year = getTagStringIntValue(tag, FieldKey.YEAR, 0);
+            String totalTracks = getTagStringValue(tag, FieldKey.TRACK_TOTAL, "");
+            String trackNumber = getTagStringValue(tag, FieldKey.TRACK, "");
+            String year = getTagStringValue(tag, FieldKey.YEAR, "");
 
 
             track.setDuration(duration);

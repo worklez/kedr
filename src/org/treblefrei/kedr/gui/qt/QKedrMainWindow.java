@@ -88,6 +88,11 @@ public class QKedrMainWindow extends QMainWindow {
         workspaceWidget.selectedAlbumChanged.connect(this, "setSelectedAlbum(Album)");
         dockWidget.setWidget(workspaceWidget);
         dockWidget.setMinimumWidth(200);
+        QDockWidget.DockWidgetFeatures dockFeatures = new QDockWidget.DockWidgetFeatures(
+                QDockWidget.DockWidgetFeature.DockWidgetFloatable.value() |
+                QDockWidget.DockWidgetFeature.DockWidgetMovable.value()
+        );
+        dockWidget.setFeatures(dockFeatures);
 
         addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, dockWidget);
 

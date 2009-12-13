@@ -36,7 +36,7 @@ public class QKedrWorkspace extends QDialog implements Updatable  {
         albumList.setViewMode(QListView.ViewMode.IconMode);
         albumList.setIconSize(new QSize(176, 160));
         albumList.setMovement(QListView.Movement.Static);
-        albumList.setMaximumWidth(200);
+        albumList.setMinimumWidth(200);
         albumList.setSpacing(12);
         albumList.currentItemChanged.connect(this, "changeAlbum(QListWidgetItem , QListWidgetItem)");
 

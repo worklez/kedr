@@ -3,23 +3,14 @@ package org.treblefrei.kedr.model;
 public class Track {
  
 	private String artist;
-	 
 	private String genre;
-	 
-	private int year;
-	 
-	private int trackNumber;
-	 
-	private int totalTracks;
-	 
+	private String year;
+	private String trackNumber;
+	private String totalTracks;
 	private long duration;
-
 	private String title;
-	 
 	private String album;
-	 
 	private String filepath;
-
     private String format;
 
     public String getArtist() {
@@ -38,27 +29,27 @@ public class Track {
         this.genre = genre;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public int getTrackNumber() {
+    public String getTrackNumber() {
         return trackNumber;
     }
 
-    public void setTrackNumber(int trackNumber) {
+    public void setTrackNumber(String trackNumber) {
         this.trackNumber = trackNumber;
     }
 
-    public int getTotalTracks() {
+    public String getTotalTracks() {
         return totalTracks;
     }
 
-    public void setTotalTracks(int totalTracks) {
+    public void setTotalTracks(String totalTracks) {
         this.totalTracks = totalTracks;
     }
 

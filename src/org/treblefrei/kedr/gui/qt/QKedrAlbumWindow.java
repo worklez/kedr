@@ -3,10 +3,7 @@ package org.treblefrei.kedr.gui.qt;
 import com.trolltech.qt.QVariant;
 import com.trolltech.qt.core.QModelIndex;
 import com.trolltech.qt.core.Qt;
-import com.trolltech.qt.gui.QAbstractButton;
-import com.trolltech.qt.gui.QAbstractTableModel;
-import com.trolltech.qt.gui.QTableView;
-import com.trolltech.qt.gui.QWidget;
+import com.trolltech.qt.gui.*;
 import org.treblefrei.kedr.core.Updatable;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Track;
@@ -26,7 +23,6 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
             this.album = album;
             endInsertRows();
         }
-
         @Override
         public Object data(QModelIndex index, int role) {
             if (index == null || album == null)
@@ -40,16 +36,28 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 
                 switch(index.column()) {
                     case 0:
-                        return track.getArtist();
-
+                        return String.valueOf(track.getTrackNumber());
                     case 1:
+                        return track.getArtist();
+                    case 2:
+                        return track.getAlbum();
+                    case 3:
                         return track.getTitle();
+                    case 4:
+                        return track.getGenre();
+                    case 5:
+                        return track.getYear();
+                    case 6:
+                        return String.format("%02d:%02d", (int)(track.getDuration() / 60 / 1000),
+                            (int)(track.getDuration() / 1000)%60);
+
+                    default:
+                        return null;
                 }
             }
 
             return null;
         }
-
         @Override
         public Object headerData(int section, Qt.Orientation orientation, int role) {
 
@@ -60,9 +68,19 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 
                 switch(section) {
                     case 0:
-                        return tr("Artist");
+                        return tr("Track No");
                     case 1:
+                        return tr("Artist");
+                    case 2:
+                        return tr("Album");
+                    case 3:
                         return tr("Title");
+                    case 4:
+                        return tr("Genre");
+                    case 5:
+                        return tr("Year");
+                    case 6:
+                        return tr("Duration");
 
                     default:
                         return null;
@@ -71,10 +89,9 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 
             return null;
         }
-
         @Override
         public int columnCount(QModelIndex qModelIndex) {
-            return 2;
+            return 7;
         }
         @Override
         public int rowCount(QModelIndex qModelIndex) {
@@ -84,7 +101,7 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
         }
     }
 
-	private QAbstractButton queryButton;
+	private QAbstractButton queryButton = new QPushButton(tr("Tag it!"));
     private QTableView trackList;
     private QTrackListModel trackListModel;
 
@@ -92,10 +109,24 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 	 
 	private QAbstractButton qAbstractButton;
     private Album selectedAlbum;
+    private QHBoxLayout trackListLayout = new QHBoxLayout();
+    private QVBoxLayout verticalLayout = new QVBoxLayout();
+    private QHBoxLayout buttonLayout = new QHBoxLayout();
+
 
     public QKedrAlbumWindow() {
         trackList = new QTableView(this);
         trackListModel = new QTrackListModel();
+
+        trackListLayout.addWidget(trackList);
+        buttonLayout.addWidget(queryButton);
+
+        verticalLayout.addLayout(buttonLayout);
+        verticalLayout.addLayout(trackListLayout);
+
+
+
+        setLayout(verticalLayout);
 
         trackList.setModel(trackListModel);
         trackList.horizontalHeader().show();
@@ -107,6 +138,7 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 
         selectedAlbum = album;
         trackListModel.setAlbum(album);
+        trackList.resizeColumnsToContents();
 	    album.addUpdatable(this);
 	}
 	 

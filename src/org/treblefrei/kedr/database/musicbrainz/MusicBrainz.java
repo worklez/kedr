@@ -53,8 +53,8 @@ public class MusicBrainz {
                 albumTrack.setArtist(track.getArtist().getName()); // TODO: offer artist name aliases
                 albumTrack.setDuration(track.getDuration());
                 albumTrack.setTitle(track.getTitle());
-                albumTrack.setTotalTracks(tracks.size());
-                albumTrack.setTrackNumber(trackNumber);
+                albumTrack.setTotalTracks(String.valueOf(tracks.size())); // changed to string due to change of Track
+                albumTrack.setTrackNumber(String.valueOf(trackNumber));
                 // albumTrack.setYear(release.getEarliestReleaseDate()); // TODO: String for date or int for year?
                 album.addTrack(albumTrack);
                 trackNumber++; // TODO: is it correct? are they in order?
