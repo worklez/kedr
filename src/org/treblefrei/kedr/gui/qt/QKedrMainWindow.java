@@ -133,7 +133,7 @@ public class QKedrMainWindow extends QMainWindow {
     }
     public static void main(String []args) {
         QApplication.initialize(args);
-        Logger.getLogger("org.jaudiotagger.audio").setLevel(Level.OFF);
+        Logger.getLogger("org.jaudiotagger.audio").setLevel(Level.OFF); // just stfu
         QKedrMainWindow mainWindow = new QKedrMainWindow();
 
         mainWindow.show();

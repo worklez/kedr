@@ -22,10 +22,10 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
         @Override
         public Object data(QModelIndex index, int role) {
             if (index == null || album == null)
-                return new QVariant();
+                return null;
 
             if (index.row() > album.getTracks().size() || index.row() < 0)
-                return new QVariant();
+                return null;
 
             if (role == Qt.ItemDataRole.DisplayRole) {
                 Track track = album.getTracks().get(index.row());
@@ -39,15 +39,15 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
                 }
             }
 
-            return new QVariant();
+            return null;
         }
 
         @Override
         public Object headerData(int section, Qt.Orientation orientation, int role) {
+            System.err.println("QTrackListModel.headerData orientation="+orientation);
+            
             if (role != Qt.ItemDataRole.DisplayRole)
-                return new QVariant();
-
-           System.err.println("QTrackListModel.headerData");
+                return null;
 
             if (orientation == Qt.Orientation.Horizontal) {
 
@@ -58,11 +58,11 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
                         return tr("Title");
 
                     default:
-                        return new QVariant();
+                        return null;
                 }
             }
 
-            return new QVariant();
+            return null;
         }
 
         @Override
