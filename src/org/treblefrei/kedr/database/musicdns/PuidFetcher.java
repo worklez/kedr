@@ -58,7 +58,7 @@ public class PuidFetcher {
             conn.setDoOutput(true);
 
             String query = String.format(queryFormat,
-                    clientId, clientVersion, fingerPrints.get(track).getDigest(),
+                    clientId, clientVersion, fingerPrints.get(track),
                     0, 0, track.getFormat(), track.getDuration(),
                     "unknown", "unknown", "unknown", 0, "unknown", 0, "");
 

@@ -11,14 +11,10 @@ import javax.swing.filechooser.FileSystemView;
 
 public class QKedrMainWindow extends QMainWindow {
 
-	private QKedrAboutDialog aboutDialog;
-	private QKedrSettingsDialog settingsDialog;
 	private QKedrWorkspace workspaceWidget;
 	private QKedrAlbumWindow albumWindow;
-	private QKedrAboutDialog qKedrAboutDialog;
-	private QKedrSettingsDialog qKedrSettingsDialog;
-	private QKedrWorkspace qKedrWorkspace;
-	private QKedrAlbumWindow qKedrAlbumWindow;
+	private QKedrAboutDialog aboutDialog;
+	private QKedrSettingsDialog settingsDialog;
 
     private QAction aboutAction;
     private QAction exitAction;
@@ -35,12 +31,12 @@ public class QKedrMainWindow extends QMainWindow {
 	public void offerNewAlbumAdding() {
         String path = QFileDialog.getExistingDirectory(this, tr("Directory"), directory.path());
 
-        if (path.isEmpty() == false) {
+        if (!path.isEmpty()) {
             directory.setPath(path);
             Album album = AlbumLoader.getAlbum(path);
             if (album != null)
                 workspace.addAlbum(album);
-            }
+        }
 	}
 
 	public void fetchAlbumInfo(Album album) {
@@ -57,6 +53,8 @@ public class QKedrMainWindow extends QMainWindow {
         createMenu();
         createWorkspaceWidget();
         createAlbumWindow();
+
+        aboutDialog = null;
 
         // TODO: Make something with this crap in future versions
         String defaultPath = FileSystemView.getFileSystemView().getDefaultDirectory().getAbsolutePath();
@@ -116,8 +114,9 @@ public class QKedrMainWindow extends QMainWindow {
     }
 
     private boolean showAboutDialog() {
-        QKedrAboutDialog dialog = new QKedrAboutDialog(this);
-        dialog.show();
+        if (null == aboutDialog)
+            aboutDialog = new QKedrAboutDialog(this);
+        aboutDialog.show();
         
         return true;
     }
