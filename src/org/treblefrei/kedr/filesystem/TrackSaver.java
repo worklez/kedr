@@ -6,10 +6,8 @@ import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.FieldDataInvalidException;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
+import org.jaudiotagger.tag.*;
+import org.jaudiotagger.tag.id3.ID3v24Tag;
 import org.treblefrei.kedr.model.Track;
 
 import java.io.File;
@@ -19,10 +17,21 @@ public class TrackSaver {
 
     private static void setTag(Tag tag, FieldKey key, String value) {
         try {
+            /*
+            try {
+                tag.deleteField(key);
+            }
+            catch (KeyNotFoundException e) {}
+              */
             tag.setField(key, value);
+            //tag.addField(key, value);
+
         } catch (FieldDataInvalidException e) {
             e.printStackTrace();
-        }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {}
+        // is thrown when trying to set non-number to tracknumber, wtf??
     }
 
     public static boolean saveTrack(Track track) throws TrackIOException {
@@ -48,13 +57,16 @@ public class TrackSaver {
         }
 
         Tag tag = f.getTag();
+        //Tag tag = new ID3v24Tag();
+
 
         try {
             tag.setEncoding("UTF-8");
         } catch (FieldDataInvalidException e) {
             e.printStackTrace();
-        }
-
+        } 
+        System.err.println("Saving "+track.getTitle());
+        
         setTag(tag, FieldKey.ARTIST, track.getArtist());
         setTag(tag, FieldKey.ALBUM, track.getAlbum());
         setTag(tag, FieldKey.GENRE, track.getGenre());
@@ -63,8 +75,11 @@ public class TrackSaver {
         setTag(tag, FieldKey.TRACK, track.getTrackNumber());
         setTag(tag, FieldKey.YEAR, track.getYear());
         
+        //f.setTag(tag);
+        
         try {
-            AudioFileIO.write(f);
+            //AudioFileIO.write(f);
+            f.commit();
         } catch (CannotWriteException e) {
             e.printStackTrace();
             throw new TrackIOException();

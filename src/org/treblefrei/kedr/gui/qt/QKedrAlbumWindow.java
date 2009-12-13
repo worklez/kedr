@@ -100,7 +100,10 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
         }
     }
 
-	private QAbstractButton queryButton = new QPushButton(tr("Tag it!"));
+	private QAbstractButton queryButton = new QPushButton(tr("Fetch tags"));
+	private QAbstractButton saveTagsButton = new QPushButton(tr("Save tags"));
+
+
     private QTableView trackList;
     private QTrackListModel trackListModel;
 
@@ -113,18 +116,18 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
     private QHBoxLayout buttonLayout = new QHBoxLayout();
 
     public Signal1<Album> fetchAlbum = new Signal1<Album>();
+    public Signal1<Album> saveTags = new Signal1<Album>();
 
     public QKedrAlbumWindow() {
         trackList = new QTableView(this);
         trackListModel = new QTrackListModel();
 
         trackListLayout.addWidget(trackList);
-        buttonLayout.addWidget(queryButton);
+        buttonLayout.addWidget(queryButton);                      
+        buttonLayout.addWidget(saveTagsButton);
 
         verticalLayout.addLayout(buttonLayout);
         verticalLayout.addLayout(trackListLayout);
-
-
 
         setLayout(verticalLayout);
 
@@ -133,6 +136,7 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
         trackList.resizeColumnsToContents();
 
         queryButton.pressed.connect(this, "fetchAlbumInfo()");
+        saveTagsButton.pressed.connect(this, "saveAlbumTags()");
     }
 
     public void setAlbum(Album album) {
@@ -150,6 +154,12 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
             fetchAlbum.emit(selectedAlbum);
         }
 	}
+
+    private void saveAlbumTags() {
+        if (selectedAlbum != null) {
+            saveTags.emit(selectedAlbum);
+        }
+    }
 
     //private void update
 	 

@@ -107,7 +107,7 @@ public class QKedrMainWindow extends QMainWindow {
         albumWindow = new QKedrAlbumWindow();
         setCentralWidget(albumWindow);
 
-        //albumWindow.saveTags.connect(this, "saveTags(Album)");
+        albumWindow.saveTags.connect(this, "saveTags(Album)");
         albumWindow.fetchAlbum.connect(this, "fetchAlbumInfo(Album)");
 
         return true;
