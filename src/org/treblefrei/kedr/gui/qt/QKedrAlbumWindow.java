@@ -3,17 +3,9 @@ package org.treblefrei.kedr.gui.qt;
 import com.trolltech.qt.core.QModelIndex;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.*;
-import org.musicbrainz.JMBWSException;
-import org.treblefrei.kedr.audio.AudioDecoderException;
 import org.treblefrei.kedr.core.Updatable;
-import org.treblefrei.kedr.database.AlbumInfoFetcher;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Track;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.IOException;
 
 public class QKedrAlbumWindow extends QWidget implements Updatable {
     private class QTrackListModel extends QAbstractTableModel {
@@ -138,8 +130,6 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
         trackList.setModel(trackListModel);
         trackList.horizontalHeader().show();
         trackList.resizeColumnsToContents();
-
-        queryButton.clicked.connect(this, "fetchAlbumInfo()");
     }
 
     public void setAlbum(Album album) {
@@ -153,25 +143,8 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 	}
 	 
 	private void fetchAlbumInfo() {
-        try {
-            if (null != selectedAlbum) {
-                Album filledAlbum = AlbumInfoFetcher.fetchAlbumInfo(selectedAlbum);
-                selectedAlbum.sync(filledAlbum);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (SAXException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (AudioDecoderException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (XPathExpressionException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (JMBWSException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-    }
+	 
+	}
 
     //private void update
 	 

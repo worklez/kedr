@@ -7,16 +7,16 @@ import java.util.List;
 
 public class Track {
  
-	private String artist;
-	private String genre;
-	private String year;
-	private String trackNumber;
-	private String totalTracks;
-	private long duration;
-	private String title;
-	private String album;
-	private String filepath;
-    private String format;
+	private String artist = "";
+	private String genre = "";
+	private String year = "";
+	private String trackNumber = "";
+	private String totalTracks = "";
+	private long duration = 0;
+	private String title = "";
+	private String album = "";
+	private String filepath = "";
+    private String format = "";
     private List<Puid> puids;
 
 

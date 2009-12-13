@@ -4,6 +4,7 @@ import com.trolltech.qt.core.QDir;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.*;
 import org.treblefrei.kedr.filesystem.AlbumLoader;
+import org.treblefrei.kedr.filesystem.AlbumSaver;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Workspace;
 
@@ -47,6 +48,10 @@ public class QKedrMainWindow extends QMainWindow {
 
 	}
 
+    public void saveTags(Album album) {
+        AlbumSaver.saveAlbum(album);
+    }
+
     public QKedrMainWindow() {
         setMenuBar(new QMenuBar());
         setMinimumSize(800, 600);
@@ -75,6 +80,8 @@ public class QKedrMainWindow extends QMainWindow {
     private boolean createAlbumWindow() {
         albumWindow = new QKedrAlbumWindow();
         setCentralWidget(albumWindow);
+
+        albumWindow.saveTags.connect(this, "saveTags(Album)");
 
         return true;
     }
