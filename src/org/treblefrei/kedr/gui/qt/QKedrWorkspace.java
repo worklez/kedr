@@ -13,7 +13,7 @@ import java.util.List;
 
 public class QKedrWorkspace extends QDialog implements Updatable  {
  
-	public QSignalEmitter.Signal1<Album> selectedAlbumChanged;
+	public QSignalEmitter.Signal1<Album> selectedAlbumChanged = new Signal1<Album>();
 	 
 	private QKedrMainWindow mainWindow;
 
@@ -38,11 +38,18 @@ public class QKedrWorkspace extends QDialog implements Updatable  {
         albumList.setMovement(QListView.Movement.Static);
         albumList.setMaximumWidth(200);
         albumList.setSpacing(12);
+        albumList.currentItemChanged.connect(this, "changeAlbum(QListWidgetItem , QListWidgetItem)");
 
         horizontalLayout.addWidget(albumList);
         workspace.addUpdatableWidget(this);
     }
 
+    private void changeAlbum(QListWidgetItem current, QListWidgetItem previous) {
+        
+        Album album = (Album) current.data(Qt.ItemDataRole.DisplayPropertyRole);
+        if (album != null)
+            selectedAlbumChanged.emit(album);
+    }
 
 	/**
 	 * @see org.treblefrei.kedr.core.Updatable#perfomed()
@@ -61,6 +68,7 @@ public class QKedrWorkspace extends QDialog implements Updatable  {
             // coz Windows cant view svg's :\
             item.setIcon(new QIcon("classpath:org/treblefrei/kedr/resources/icons/unknown.png"));
             albumList.addItem(item);
+            
         }
 
 		return true;

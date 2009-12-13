@@ -102,19 +102,12 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
     }
 
     public void setAlbum(Album album) {
-        System.err.println("QKedrAlbumWindow.setAlbum("+album+")");
-
         if (album != null)
             album.removeUpdatable(this);
 
-
-
         selectedAlbum = album;
         trackListModel.setAlbum(album);
-        //trackList.
 	    album.addUpdatable(this);
-
-
 	}
 	 
 	private void fetchAlbumInfo() {

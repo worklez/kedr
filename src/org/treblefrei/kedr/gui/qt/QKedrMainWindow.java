@@ -28,7 +28,7 @@ public class QKedrMainWindow extends QMainWindow {
     private Workspace workspace;
 
     public void setSelectedAlbum(Album album) {
-
+        albumWindow.setAlbum(album);
 	}
 
 	public void offerNewAlbumAdding() {
@@ -85,6 +85,7 @@ public class QKedrMainWindow extends QMainWindow {
         ));
 
         workspaceWidget = new QKedrWorkspace(workspace);
+        workspaceWidget.selectedAlbumChanged.connect(this, "setSelectedAlbum(Album)");
         dockWidget.setWidget(workspaceWidget);
         dockWidget.setMinimumWidth(200);
 
