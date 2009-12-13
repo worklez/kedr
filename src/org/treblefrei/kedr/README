@@ -1,0 +1,12 @@
+How to build musicbrainz:
+ 1. svn co http://svn.musicbrainz.org/libmusicbrainz-java/tags/release-1-0-0beta2/
+ 2. get jdk 1.5, unpack it to /path/to/jdk1.5
+ 3. in the musicbrainz's release-1-0-0beta2/ dir:
+    cd build
+    JAVA_HOME=/path/to/jdk1.5 ant
+ This will produce .jar in the root (release-1-0-0beta2/).
+ This jar have to be attached to the project with the release-1-0-0beta2/libs/ jars.
+ 4. attach to the project jmx.jar from our (kedr) libs/. It's croped from sun jre's 1.5 rt.jar.
+ (guess it may be illegal, but nobody cares)
+
+ Also, built musicbrainz jar is in our (kedr) libs/ to.

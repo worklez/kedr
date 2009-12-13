@@ -1,18 +1,17 @@
 package org.treblefrei.kedr.database.musicdns.test;
 
-import org.treblefrei.kedr.audio.AudioDecoder;
-import org.treblefrei.kedr.audio.AudioDecoderException;
-import org.treblefrei.kedr.database.musicdns.PuidFetcher;
+import org.musicbrainz.JMBWSException;
+import org.treblefrei.kedr.database.Puid;
+import org.treblefrei.kedr.database.musicbrainz.MusicBrainz;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Track;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,8 +21,8 @@ import java.util.logging.Logger;
  */
 
 public class Main {
-        public static void main(String args[]) throws IOException, SAXException, XPathExpressionException, ParserConfigurationException {
-        try {
+        public static void main(String args[]) throws IOException, SAXException, XPathExpressionException, ParserConfigurationException, JMBWSException {
+//        try {
             Album album = new Album("Foo");
 
             Track track1 = new Track();
@@ -35,11 +34,17 @@ public class Main {
             album.addTrack(track1);
             album.addTrack(track2);
 
-            PuidFetcher.fetchPuids(album);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(AudioDecoder.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (AudioDecoderException ex) {
-            Logger.getLogger(AudioDecoder.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            //Map<Track, Set<Puid>> puids = PuidFetcher.fetchPuids(album);
+            //MusicBrainz.getPuidInfo(puids.get(track1).get(0));
+//            MusicBrainz.getTrackByPuid(new Puid("3a33de2e-66d4-f718-7b59-2e1b9b02042d"));
+//            MusicBrainz.getTrackByPuid(new Puid("049e33d2-8d4e-7bb1-ce7e-fdea205b1be9"));
+            Set<Puid> puids = new HashSet<Puid>();
+            puids.add(new Puid("3a33de2e-66d4-f718-7b59-2e1b9b02042d"));
+            MusicBrainz.getAlbumsByPuids(puids);
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(AudioDecoder.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (AudioDecoderException ex) {
+//            Logger.getLogger(AudioDecoder.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 }
