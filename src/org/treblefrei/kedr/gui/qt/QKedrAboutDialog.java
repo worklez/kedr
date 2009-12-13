@@ -9,8 +9,8 @@ public class QKedrAboutDialog extends QDialog {
         setModal(true);
         setWindowTitle(tr("About"));
         QVBoxLayout layout = new QVBoxLayout();
-        QLabel about = new QLabel(tr("KEDR works on the electron-positron collider VEPP-4M"), this);
-        QPushButton okButton = new QPushButton(tr("OK"), this);
+        QLabel about = new QLabel(tr("KEDR runs on the electron-positron collider VEPP-4M"), this);
+        QPushButton okButton = new QPushButton("OK", this);
         layout.addWidget(about);
         layout.addWidget(okButton);
         setLayout(layout);

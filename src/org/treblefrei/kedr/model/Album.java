@@ -8,8 +8,8 @@ import java.util.List;
 public class Album {
  
 	private List<Track> tracks;
-	 
-	private List<Updatable> updatables;
+
+    private List<Updatable> updatables;
 
     private String title;
 
@@ -21,7 +21,11 @@ public class Album {
     }
 
 	public boolean sync(Album target) {
-		return false;
+        title = target.getTitle();
+        tracks = target.getTracks();
+        updatables = target.getUpdatables();
+        notifyUpdatables();
+		return true;
 	}
 
     public List<Track> getTracks() {
@@ -54,6 +58,12 @@ public class Album {
     public void removeUpdatable(Updatable updatable) {
         updatables.remove(updatable);
     }
+
+    private List<Updatable> getUpdatables() {
+        return updatables;
+    }
+
+    
 
     @Override
     public String toString() {
