@@ -3,11 +3,14 @@ package org.treblefrei.kedr.gui.qt;
 import com.trolltech.qt.core.QDir;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.*;
+import org.jaudiotagger.logging.*;
 import org.treblefrei.kedr.filesystem.AlbumLoader;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Workspace;
 
 import javax.swing.filechooser.FileSystemView;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class QKedrMainWindow extends QMainWindow {
 
@@ -34,8 +37,10 @@ public class QKedrMainWindow extends QMainWindow {
         if (!path.isEmpty()) {
             directory.setPath(path);
             Album album = AlbumLoader.getAlbum(path);
-            if (album != null)
+            if (album != null) {
                 workspace.addAlbum(album);
+                albumWindow.setAlbum(album);
+                }
         }
 	}
 
@@ -128,6 +133,7 @@ public class QKedrMainWindow extends QMainWindow {
     }
     public static void main(String []args) {
         QApplication.initialize(args);
+        Logger.getLogger("org.jaudiotagger.audio").setLevel(Level.OFF);
         QKedrMainWindow mainWindow = new QKedrMainWindow();
 
         mainWindow.show();

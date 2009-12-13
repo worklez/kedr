@@ -47,10 +47,17 @@ public class Album {
             updatable.perfomed();
     }
 
-
     public void addUpdatable(Updatable uptable) {
         updatables.add(uptable);
     }
 
+    public void removeUpdatable(Updatable updatable) {
+        updatables.remove(updatable);
+    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }
  

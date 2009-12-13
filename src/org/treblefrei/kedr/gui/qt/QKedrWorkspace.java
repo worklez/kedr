@@ -55,8 +55,11 @@ public class QKedrWorkspace extends QDialog implements Updatable  {
             QListWidgetItem item = new QListWidgetItem();
             item.setData(Qt.ItemDataRole.DisplayPropertyRole, album);
             item.setText(album.getTitle());
+            
             // TODO: Place black square or smth like that
-            item.setIcon(new QIcon("../src/org/treblefrei/kedr/resources/icons/unknown.svg"));
+            //item.setIcon(new QIcon("classpath:org/treblefrei/kedr/resources/icons/unknown.svg"));
+            // coz Windows cant view svg's :\
+            item.setIcon(new QIcon("classpath:org/treblefrei/kedr/resources/icons/unknown.png"));
             albumList.addItem(item);
         }
 
