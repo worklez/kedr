@@ -19,7 +19,13 @@ public class AlbumLoader {
 
         for (String filename : children) {
             String filepath = new File(directory, filename).getAbsolutePath();
-            Track track = TrackLoader.getTrack(filepath);
+            Track track = null;
+
+            try {
+                track = TrackLoader.getTrack(filepath);
+            } catch (TrackIOException e) {
+                // problem with track
+            }
 
             if (track != null)
                 album.addTrack(track);

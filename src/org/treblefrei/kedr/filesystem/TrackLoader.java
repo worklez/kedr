@@ -39,7 +39,7 @@ public class TrackLoader {
     }
 
 
-	public static Track getTrack(String filename) {
+	public static Track getTrack(String filename) throws TrackIOException {
 
 
         try {
@@ -74,18 +74,21 @@ public class TrackLoader {
             return track;
 
         } catch (CannotReadException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
+            throw new TrackIOException();
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
+            throw new TrackIOException();
         } catch (TagException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
+            throw new TrackIOException();
         } catch (ReadOnlyFileException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
+            throw new TrackIOException();
         } catch (InvalidAudioFrameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
+            throw new TrackIOException();
         }
-
-		return null;
 	}
 	 
 }
