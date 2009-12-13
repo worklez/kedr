@@ -16,7 +16,15 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
         private Album album;
 
         public void setAlbum(Album album) {
+            if (this.album != null) {
+                beginRemoveRows(null, 0, this.album.getTracks().size()-1);
+                this.album = null;
+                endRemoveRows();
+                }
+            
+            beginInsertRows(null, 0, album.getTracks().size()-1);
             this.album = album;
+            endInsertRows();
         }
 
         @Override
@@ -44,8 +52,7 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 
         @Override
         public Object headerData(int section, Qt.Orientation orientation, int role) {
-            System.err.println("QTrackListModel.headerData orientation="+orientation);
-            
+
             if (role != Qt.ItemDataRole.DisplayRole)
                 return null;
 
@@ -100,9 +107,11 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
         if (album != null)
             album.removeUpdatable(this);
 
+
+
         selectedAlbum = album;
         trackListModel.setAlbum(album);
-        trackList.update();
+        //trackList.
 	    album.addUpdatable(this);
 
 
