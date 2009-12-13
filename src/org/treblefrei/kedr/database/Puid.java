@@ -21,4 +21,9 @@ public class Puid {
     public String toString() {
         return puid;
     }
+
+    public int hashCode() {
+        return puid.hashCode();
+    }
+
 }

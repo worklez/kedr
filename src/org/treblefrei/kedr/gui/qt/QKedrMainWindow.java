@@ -3,7 +3,6 @@ package org.treblefrei.kedr.gui.qt;
 import com.trolltech.qt.core.QDir;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.*;
-import org.jaudiotagger.logging.*;
 import org.treblefrei.kedr.filesystem.AlbumLoader;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Workspace;
@@ -64,6 +63,7 @@ public class QKedrMainWindow extends QMainWindow {
         // TODO: Make something with this crap in future versions
         String defaultPath = FileSystemView.getFileSystemView().getDefaultDirectory().getAbsolutePath();
         directory = new QDir(defaultPath);
+        this.setWindowTitle("KEDR");
     }
 
     private boolean initWorkspace() {

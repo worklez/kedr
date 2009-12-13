@@ -1,5 +1,10 @@
 package org.treblefrei.kedr.model;
 
+import org.treblefrei.kedr.database.Puid;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class Track {
  
 	private String artist;
@@ -12,6 +17,20 @@ public class Track {
 	private String album;
 	private String filepath;
     private String format;
+    private List<Puid> puids;
+
+
+    public Track() {
+        puids = new LinkedList<Puid>();
+    }
+    
+    public List<Puid> getPuids() {
+        return puids;
+    }
+
+    public void addPuid(Puid puid) {
+        puids.add(puid);
+    }
 
     public String getArtist() {
         return artist;

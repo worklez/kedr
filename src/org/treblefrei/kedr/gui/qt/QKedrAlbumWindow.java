@@ -1,6 +1,5 @@
 package org.treblefrei.kedr.gui.qt;
 
-import com.trolltech.qt.QVariant;
 import com.trolltech.qt.core.QModelIndex;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.*;

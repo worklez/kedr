@@ -42,9 +42,9 @@ public class PuidFetcher {
         "\r\n";
 
     // FIXME: ought to take an Album
-    public static Map<Track, Set<Puid>> fetchPuids(Album album) throws AudioDecoderException, IOException, XPathExpressionException, ParserConfigurationException, SAXException {
+    public static boolean fetchPuids(Album album) throws AudioDecoderException, IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         List<Track> tracks = album.getTracks();
-        Map<Track, Set<Puid>> albumPuids = new HashMap<Track, Set<Puid>>();
+//        Map<Track, Set<Puid>> albumPuids = new HashMap<Track, Set<Puid>>();
         Map<Track, Digest> fingerPrints = DigestMaker.getAlbumDigest(album);
 
         for (Track track : tracks) {
@@ -65,9 +65,14 @@ public class PuidFetcher {
 
             Set<Puid> puids = parseXml(conn.getInputStream());
             conn.disconnect();
-            albumPuids.put(track, puids);
+            Iterator<Puid> it = puids.iterator();
+            while (it.hasNext()) {
+                track.addPuid(it.next());
+            }
+            // albumPuids.put(track, puids);
         }
-        return albumPuids;
+        // return albumPuids;
+        return true;
     }
 
     public static Set<Puid> parseXml(InputStream is) throws ParserConfigurationException, XPathExpressionException, IOException, SAXException {

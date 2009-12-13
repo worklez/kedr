@@ -5,6 +5,7 @@ import org.musicbrainz.Query;
 import org.musicbrainz.model.Release;
 import org.musicbrainz.model.Track;
 import org.musicbrainz.webservice.filter.TrackFilter;
+import org.musicbrainz.webservice.includes.TrackIncludes;
 import org.musicbrainz.wsxml.element.TrackResult;
 import org.musicbrainz.wsxml.element.TrackSearchResults;
 import org.treblefrei.kedr.database.Puid;
@@ -48,17 +49,22 @@ public class MusicBrainz {
             int trackNumber = 1;
             for (Track track : tracks) {
                 org.treblefrei.kedr.model.Track albumTrack = new org.treblefrei.kedr.model.Track();
-                System.err.println("\t Track found: " + track.getTitle());
+//                System.err.println("\t Track found: " + track.getTitle());
                 albumTrack.setAlbum(release.getTitle());
                 albumTrack.setArtist(track.getArtist().getName()); // TODO: offer artist name aliases
                 albumTrack.setDuration(track.getDuration());
                 albumTrack.setTitle(track.getTitle());
                 albumTrack.setTotalTracks(String.valueOf(tracks.size())); // changed to string due to change of Track
                 albumTrack.setTrackNumber(String.valueOf(trackNumber));
+                List<String> puidStrings = getTrackById(track.getId()).getPuids();
+                for (String puidString : puidStrings) {
+                    albumTrack.addPuid(new Puid(puidString));
+                }
                 // albumTrack.setYear(release.getEarliestReleaseDate()); // TODO: String for date or int for year?
                 album.addTrack(albumTrack);
                 trackNumber++; // TODO: is it correct? are they in order?
             }
+            albums.add(album);
         }
         return albums;
     }
@@ -78,20 +84,39 @@ public class MusicBrainz {
         return tracks;
     }
 
+//    private static class PuidQuery extends Query {
+//        TrackSearchResults getTracksWithPuids(TrackFilter filter) throws JMBWSException {
+//            TrackIncludes includes = new TrackIncludes();
+//            includes.setArtist(true);
+//            includes.setPuids(true);
+//            includes.setReleases(true);
+//            return getFromWebService("track", "", includes, filter).getTrackResults();
+//        }
+//    }
+
     public static Track getTrackByPuid(Puid puid) throws JMBWSException {
         Query query = new Query();
         TrackFilter filter = new TrackFilter();
         filter.setPuid(puid.toString());
         TrackSearchResults results = query.getTracks(filter);
         Track t = results.getTrackResults().get(0).getTrack(); // FIXME getting the first one
-        System.err.println(t.getArtist().getName() + " - " + t.getTitle() + " from " + t.getReleases().get(0).getTitle());
+//        System.err.println(t.getArtist().getName() + " - " + t.getTitle() + " from " + t.getReleases().get(0).getTitle());
         return t;
     }
 
-    public static Release getReleaseById(String id)
-         throws JMBWSException {
+    public static Release getReleaseById(String id) throws JMBWSException {
         Query query = new Query();
         return query.getReleaseById(id, null);
     }
+
+    public static Track getTrackById(String id) throws JMBWSException {
+        Query query = new Query();
+        TrackIncludes includes = new TrackIncludes();
+        includes.setArtist(true);
+        includes.setPuids(true);
+        includes.setReleases(true);
+        return query.getTrackById(id, includes);
+    }
+
 }
  
