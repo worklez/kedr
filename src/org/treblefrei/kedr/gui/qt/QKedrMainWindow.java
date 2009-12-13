@@ -64,6 +64,7 @@ public class QKedrMainWindow extends QMainWindow {
         String defaultPath = FileSystemView.getFileSystemView().getDefaultDirectory().getAbsolutePath();
         directory = new QDir(defaultPath);
         this.setWindowTitle("KEDR");
+        setWindowIcon(new QIcon("classpath:org/treblefrei/kedr/resources/icons/icon.png"));
     }
 
     private boolean initWorkspace() {
