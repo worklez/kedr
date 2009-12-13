@@ -18,7 +18,8 @@ public class AlbumLoader {
         Album album = new Album(title);
 
         for (String filename : children) {
-            Track track = TrackLoader.getTrack(filename);
+            String filepath = new File(directory, filename).getAbsolutePath();
+            Track track = TrackLoader.getTrack(filepath);
 
             if (track != null)
                 album.addTrack(track);
