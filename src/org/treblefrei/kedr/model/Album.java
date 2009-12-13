@@ -23,7 +23,7 @@ public class Album {
 	public boolean sync(Album target) {
         title = target.getTitle();
         tracks = target.getTracks();
-        updatables = target.getUpdatables();
+        //updatables = target.getUpdatables();
         notifyUpdatables();
 		return true;
 	}

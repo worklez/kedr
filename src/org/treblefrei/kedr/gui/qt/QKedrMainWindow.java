@@ -3,12 +3,19 @@ package org.treblefrei.kedr.gui.qt;
 import com.trolltech.qt.core.QDir;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.*;
+import org.musicbrainz.JMBWSException;
+import org.treblefrei.kedr.audio.AudioDecoderException;
+import org.treblefrei.kedr.database.AlbumInfoFetcher;
 import org.treblefrei.kedr.filesystem.AlbumLoader;
 import org.treblefrei.kedr.filesystem.AlbumSaver;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Workspace;
+import org.xml.sax.SAXException;
 
 import javax.swing.filechooser.FileSystemView;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,6 +52,25 @@ public class QKedrMainWindow extends QMainWindow {
 	}
 
 	public void fetchAlbumInfo(Album album) {
+        if (null != album) {
+            Album filledAlbum = null;
+            try {
+                filledAlbum = AlbumInfoFetcher.fetchAlbumInfo(album);
+            } catch (IOException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (SAXException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (AudioDecoderException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (JMBWSException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            album.sync(filledAlbum); 
+            }
 
 	}
 
@@ -81,7 +107,8 @@ public class QKedrMainWindow extends QMainWindow {
         albumWindow = new QKedrAlbumWindow();
         setCentralWidget(albumWindow);
 
-        albumWindow.saveTags.connect(this, "saveTags(Album)");
+        //albumWindow.saveTags.connect(this, "saveTags(Album)");
+        albumWindow.fetchAlbum.connect(this, "fetchAlbumInfo(Album)");
 
         return true;
     }

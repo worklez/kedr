@@ -112,6 +112,7 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
     private QVBoxLayout verticalLayout = new QVBoxLayout();
     private QHBoxLayout buttonLayout = new QHBoxLayout();
 
+    public Signal1<Album> fetchAlbum = new Signal1<Album>();
 
     public QKedrAlbumWindow() {
         trackList = new QTableView(this);
@@ -130,6 +131,8 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
         trackList.setModel(trackListModel);
         trackList.horizontalHeader().show();
         trackList.resizeColumnsToContents();
+
+        queryButton.pressed.connect(this, "fetchAlbumInfo()");
     }
 
     public void setAlbum(Album album) {
@@ -143,7 +146,9 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 	}
 	 
 	private void fetchAlbumInfo() {
-	 
+        if (null != selectedAlbum) {
+            fetchAlbum.emit(selectedAlbum);
+        }
 	}
 
     //private void update
@@ -152,7 +157,9 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
 	 * @see org.treblefrei.kedr.core.Updatable#perfomed()
 	 */
 	public boolean perfomed() {
-		return false;
+        System.err.println("performed()");
+        trackListModel.setAlbum(selectedAlbum);
+		return true;
 	}
 
 }

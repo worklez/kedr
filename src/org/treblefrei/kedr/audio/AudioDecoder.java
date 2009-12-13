@@ -40,6 +40,7 @@ public class AudioDecoder {
         IContainer container = IContainer.make();
 
         if (container.open(filename, IContainer.Type.READ, null) < 0) {
+            System.err.println("File not found: "+filename);
             throw new FileNotFoundException();
         }
 
