@@ -92,7 +92,8 @@ public class QKedrMainWindow extends QMainWindow {
         aboutAction.setStatusTip(tr("Show KEDR's about dialog"));
         aboutAction.triggered.connect(this, "showAboutDialog()");
 
-        addNewAlbumAction = new QAction(null, tr("Add &new album directory"), this);
+        addNewAlbumAction = new QAction(null, tr("Add &New album directory"), this);
+        addNewAlbumAction.setShortcut(new QKeySequence(tr("Ctrl+N")));
         addNewAlbumAction.setStatusTip(tr("Add new album directory to workspace"));
         addNewAlbumAction.triggered.connect(this, "offerNewAlbumAdding()");
 
@@ -106,8 +107,9 @@ public class QKedrMainWindow extends QMainWindow {
         QMenu fileMenu = menuBar().addMenu(tr("&File"));
         QMenu helpMenu = menuBar().addMenu(tr("&Help"));
 
-        fileMenu.addAction(exitAction);
         fileMenu.addAction(addNewAlbumAction);
+        fileMenu.addSeparator();
+        fileMenu.addAction(exitAction);
         helpMenu.addAction(aboutAction);
 
         return true;
