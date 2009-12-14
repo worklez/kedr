@@ -5,6 +5,7 @@
 
   <property name="src" location="src"/>
   <property name="build" location="build"/>
+  <property name="dist" location="dist"/>
 
   <path id="lib.path.ref">
      <fileset dir="lib" includes="*.jar"/>
@@ -13,6 +14,7 @@
   <target name="init">
     <tstamp/>
     <mkdir dir="${build}"/>
+    <mkdir dir="${dist}"/>
   </target>
 
   <target name="compile" depends="init" description="compile the source" >
@@ -20,26 +22,36 @@
   </target>
 
   <target name="dist" depends="compile" description="generate the distribution" >
-     <jar jarfile="KEDR-${DSTAMP}.jar" basedir="${build}">
+     <jar jarfile="${dist}/KEDR-${DSTAMP}.jar" basedir="${build}">
         <manifest>
           <attribute name="Main-Class" value="org.treblefrei.kedr.gui.qt.QKedrMainWindow"/>
-          <attribute name="Class-Path" value="lib/KEDR-20031215.jar
-                                              lib/commons-codec-1.3.jar
-                                              lib/commons-httpclient-3.1-beta1.jar
-                                              lib/commons-lang-2.3.jar
-                                              lib/commons-logging-1.1.jar
-                                              lib/jaudiotagger-2.0.1.jar
-                                              lib/jdom.jar
-                                              lib/jmb-wsc-beta1.jar
-                                              lib/jmx1.5.jar
-                                              lib/jna.jar
-                                              lib/log4j-1.2.14.jar
-                                              lib/qtjambi-4.5.2_01.jar
-                                              lib/testng-jdk15.jar
-                                              lib/xuggle-xuggler.jar" />
-
+          <attribute name="Class-Path" value="lib/commons-codec-1.3.jar
+                                             lib/commons-httpclient-3.1-beta1.jar
+                                             lib/commons-lang-2.3.jar
+                                             lib/commons-logging-1.1.jar
+                                             lib/jaudiotagger-2.0.1.jar
+                                             lib/jdom.jar
+                                             lib/jmb-wsc-beta1.jar
+                                             lib/jmx1.5.jar
+                                             lib/jna.jar
+                                             lib/log4j-1.2.14.jar
+                                             lib/qtjambi-4.5.2_01.jar
+                                             lib/testng-jdk15.jar
+                                             lib/xuggle-xuggler.jar" />
         </manifest>
      </jar>
+     
+     <mkdir dir="${dist}/lib" />
+     
+     <copy todir="${dist}/lib">
+        <fileset dir="lib" excludes="*.dll *.so"/>
+     </copy>
+     
+     <copy todir="${dist}">
+        <fileset dir="lib" includes="*.dll"/>
+        <fileset dir="lib" includes="*.so"/>
+    </copy>
+
   </target>
 
   <target name="clean" description="clean up" >
