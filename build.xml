@@ -19,6 +19,12 @@
 
   <target name="compile" depends="init" description="compile the source" >
      <javac srcdir="${src}" destdir="${build}" classpath="${toString:lib.path.ref}" />
+     <mkdir dir="${build}/org/treblefrei/kedr/resources/icons" />
+     <copy todir="${build}/org/treblefrei/kedr/resources/icons">
+        <fileset dir="src/org/treblefrei/kedr/resources/icons">
+           <include name="**/*.png" />
+        </fileset>
+     </copy>
   </target>
 
   <target name="dist" depends="compile" description="generate the distribution" >
