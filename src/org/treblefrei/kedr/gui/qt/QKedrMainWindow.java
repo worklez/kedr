@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class QKedrMainWindow extends QMainWindow {
+public class    QKedrMainWindow extends QMainWindow {
 
 	private QKedrWorkspace workspaceWidget;
 	private QKedrAlbumWindow albumWindow;

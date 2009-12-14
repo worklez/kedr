@@ -69,7 +69,8 @@ public class DigestMaker {
     public static Map<Track, Digest> getAlbumDigestThreaded(Album album) {
         List<Track> tracks = album.getTracks();
         Map<Track, Digest> digests = new HashMap<Track, Digest>();
-        ExecutorService executor = Executors.newCachedThreadPool();
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        //ExecutorService executor = Executors.newCachedThreadPool();
         for (Track track : tracks) {
             executor.execute(new DigestMakerRunnable(track, digests));
         }
