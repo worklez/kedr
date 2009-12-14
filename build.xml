@@ -23,6 +23,7 @@
      <copy todir="${build}/org/treblefrei/kedr/resources/icons">
         <fileset dir="src/org/treblefrei/kedr/resources/icons">
            <include name="**/*.png" />
+           <include name="**/*.jpg" />
         </fileset>
      </copy>
   </target>
