@@ -36,9 +36,10 @@ class DigestMakerRunnable implements Runnable {
         }
         track.setDuration(audioData.getDuration());
         track.setFormat(audioData.getFormat());
+		String digestString = Ofa.createPrint(audioData);
         synchronized (store) {
             try {
-                store.put(track, new Digest(Ofa.createPrint(audioData)));
+                store.put(track, new Digest(digestString));
             } catch (AudioDecoderException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (FileNotFoundException e) {
