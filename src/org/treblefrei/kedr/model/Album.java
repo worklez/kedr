@@ -21,9 +21,11 @@ public class Album {
     }
 
 	public boolean sync(Album target) {
+        if (null == target) {
+            return false;
+        }
         title = target.getTitle();
         tracks = target.getTracks();
-        //updatables = target.getUpdatables();
         notifyUpdatables();
 		return true;
 	}

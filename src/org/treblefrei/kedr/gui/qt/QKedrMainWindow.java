@@ -57,21 +57,11 @@ public class QKedrMainWindow extends QMainWindow {
             try {
                 filledAlbum = AlbumInfoFetcher.fetchAlbumInfo(album);
             } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (SAXException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (AudioDecoderException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (XPathExpressionException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (JMBWSException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
+            } finally {
+                album.sync(filledAlbum);
             }
-            album.sync(filledAlbum); 
-            }
-
+        }
 	}
 
     public void saveTags(Album album) {

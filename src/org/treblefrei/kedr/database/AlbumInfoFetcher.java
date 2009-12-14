@@ -15,9 +15,14 @@ import java.util.*;
 
 public class AlbumInfoFetcher {
 
-	public static Album fetchAlbumInfo(Album album) throws IOException, SAXException, AudioDecoderException, XPathExpressionException, ParserConfigurationException, JMBWSException {
+	public static Album fetchAlbumInfo(Album album) throws IOException {
         Set<Puid> allPuids = new HashSet<Puid>();
-        PuidFetcher.fetchPuids(album);
+
+        try {
+            PuidFetcher.fetchPuids(album);
+        } catch (Exception e) {
+            throw new IOException("can't fetch puids");
+        }
 //	    for (Set<Puid> puidSet : puids.values()) {
 //            allPuids.addAll(puidSet);
 //        }
@@ -42,7 +47,12 @@ public class AlbumInfoFetcher {
 
 //        System.out.println("fetcher: " + trackByPuid);
 
-        Album newAlbum = MusicBrainz.getAlbumsByPuids(puids).iterator().next();
+        Album newAlbum = null;
+        try {
+            newAlbum = MusicBrainz.getAlbumsByPuids(puids).iterator().next();
+        } catch (JMBWSException e) {
+            throw new IOException("can't get info from musicbrainz");
+        }
 
         for (Track track : newAlbum.getTracks()) {
 //            System.out.println("fetcher: " + track.getPuids());
