@@ -3,17 +3,12 @@ package org.treblefrei.kedr.filesystem;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.KeyNotFoundException;
 import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
 import org.treblefrei.kedr.model.Track;
 
 import java.io.File;
-import java.io.IOException;
 
 public class TrackLoader {
 
@@ -23,6 +18,7 @@ public class TrackLoader {
         }
         catch (KeyNotFoundException e) {}
         catch (UnsupportedOperationException e) {}
+        catch (NullPointerException e) {}
         
         return defaultValue;
     }
@@ -72,23 +68,28 @@ public class TrackLoader {
             track.setYear(year);
 
             return track;
-
-        } catch (CannotReadException e) {
-            e.printStackTrace();
-            throw new TrackIOException();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new TrackIOException();
-        } catch (TagException e) {
-            e.printStackTrace();
-            throw new TrackIOException();
-        } catch (ReadOnlyFileException e) {
-            e.printStackTrace();
-            throw new TrackIOException();
-        } catch (InvalidAudioFrameException e) {
-            e.printStackTrace();
-            throw new TrackIOException();
+        } catch (Exception e) {
+            return null; // just skip
         }
+
+//        } catch (CannotReadException e) {
+//            // e.printStackTrace();
+//            // throw new TrackIOException();
+//            // just skip
+//            return null;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            throw new TrackIOException();
+//        } catch (TagException e) {
+//            e.printStackTrace();
+//            throw new TrackIOException();
+//        } catch (ReadOnlyFileException e) {
+//            e.printStackTrace();
+//            throw new TrackIOException();
+//        } catch (InvalidAudioFrameException e) {
+//            e.printStackTrace();
+//            throw new TrackIOException();
+//        }
 	}
 	 
 }

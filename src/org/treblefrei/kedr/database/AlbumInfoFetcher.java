@@ -11,10 +11,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class AlbumInfoFetcher {
 
@@ -34,7 +31,11 @@ public class AlbumInfoFetcher {
         Map<String, Track> trackByPuid = new HashMap<String, Track>();
 
         for (Track track : album.getTracks()) {
-            Puid puid = track.getPuids().get(0);
+            List<Puid> puidList = track.getPuids();
+            if (0 == puidList.size()) {
+                continue; // skip tracks with unknown puids
+            }
+            Puid puid = puidList.get(0);
             puids.add(puid);
             trackByPuid.put(puid.toString(), track);
         }

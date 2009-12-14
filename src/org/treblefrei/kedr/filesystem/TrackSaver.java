@@ -6,8 +6,10 @@ import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.CannotWriteException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.*;
-import org.jaudiotagger.tag.id3.ID3v24Tag;
+import org.jaudiotagger.tag.FieldDataInvalidException;
+import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.TagException;
 import org.treblefrei.kedr.model.Track;
 
 import java.io.File;
