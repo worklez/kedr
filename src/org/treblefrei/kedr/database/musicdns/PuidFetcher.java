@@ -45,7 +45,7 @@ public class PuidFetcher {
     public static boolean fetchPuids(Album album) throws AudioDecoderException, IOException, XPathExpressionException, ParserConfigurationException, SAXException {
         List<Track> tracks = album.getTracks();
 //        Map<Track, Set<Puid>> albumPuids = new HashMap<Track, Set<Puid>>();
-        Map<Track, Digest> fingerPrints = DigestMaker.getAlbumDigest(album);
+        Map<Track, Digest> fingerPrints = DigestMaker.getAlbumDigestThreaded(album);
 
         for (Track track : tracks) {
             URL url = new URL(queryUrl);

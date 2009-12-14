@@ -1,15 +1,11 @@
 package org.treblefrei.kedr.database;
 
 import org.musicbrainz.JMBWSException;
-import org.treblefrei.kedr.audio.AudioDecoderException;
 import org.treblefrei.kedr.database.musicbrainz.MusicBrainz;
 import org.treblefrei.kedr.database.musicdns.PuidFetcher;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Track;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.util.*;
 
@@ -50,6 +46,8 @@ public class AlbumInfoFetcher {
         Album newAlbum = null;
         try {
             newAlbum = MusicBrainz.getAlbumsByPuids(puids).iterator().next();
+        } catch (NoSuchElementException e) {
+            throw new IOException("album not found");    
         } catch (JMBWSException e) {
             throw new IOException("can't get info from musicbrainz");
         }

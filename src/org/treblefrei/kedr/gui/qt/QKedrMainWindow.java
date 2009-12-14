@@ -1,21 +1,19 @@
 package org.treblefrei.kedr.gui.qt;
 
+import com.trolltech.qt.QSignalEmitter;
 import com.trolltech.qt.core.QDir;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.*;
-import org.musicbrainz.JMBWSException;
-import org.treblefrei.kedr.audio.AudioDecoderException;
 import org.treblefrei.kedr.database.AlbumInfoFetcher;
 import org.treblefrei.kedr.filesystem.AlbumLoader;
 import org.treblefrei.kedr.filesystem.AlbumSaver;
 import org.treblefrei.kedr.model.Album;
 import org.treblefrei.kedr.model.Workspace;
-import org.xml.sax.SAXException;
 
 import javax.swing.filechooser.FileSystemView;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,16 +49,44 @@ public class QKedrMainWindow extends QMainWindow {
         }
 	}
 
-	public void fetchAlbumInfo(Album album) {
-        if (null != album) {
-            Album filledAlbum = null;
+    private static class InfoFetcherRunnable extends QSignalEmitter implements Runnable {
+        private Album album;
+        private Album filledAlbum;
+
+        public Signal2<Album, Album> albumFilled = new Signal2<Album, Album>();
+
+        InfoFetcherRunnable(Album album) {
+            this.album = album;
+            this.filledAlbum = null;
+        }
+
+        public void run() {
             try {
                 filledAlbum = AlbumInfoFetcher.fetchAlbumInfo(album);
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                album.sync(filledAlbum);
+                //album.sync(filledAlbum);
+                albumFilled.emit(album, filledAlbum);
+                albumFilled.disconnect();
             }
+        }
+
+    }
+
+    public void syncAlbum(Album album, Album filledAlbum) {
+        // This MUST be done in the same thread where all the QObjects live :( :(
+        System.out.println("are we here?");
+        album.sync(filledAlbum);
+    }
+
+	public void fetchAlbumInfo(Album album) {
+        if (null != album) {
+            ExecutorService executor = Executors.newCachedThreadPool();
+            InfoFetcherRunnable fetcher = new InfoFetcherRunnable(album);
+            fetcher.albumFilled.connect(this, "syncAlbum(Album, Album)");
+            executor.execute(fetcher);
+            executor.shutdown();
         }
 	}
 

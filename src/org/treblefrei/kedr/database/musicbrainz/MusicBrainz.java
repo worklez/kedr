@@ -5,6 +5,7 @@ import org.musicbrainz.Query;
 import org.musicbrainz.model.Release;
 import org.musicbrainz.model.Track;
 import org.musicbrainz.webservice.filter.TrackFilter;
+import org.musicbrainz.webservice.includes.ReleaseIncludes;
 import org.musicbrainz.webservice.includes.TrackIncludes;
 import org.musicbrainz.wsxml.element.TrackResult;
 import org.musicbrainz.wsxml.element.TrackSearchResults;
@@ -26,13 +27,16 @@ public class MusicBrainz {
             Set<String> trackReleaseIds = new HashSet<String>();
             for (Release release : releases) {
                 trackReleaseIds.add(release.getId());
+//                System.out.println(release);
             }
-            if (null != allReleasesIds) {
+            if (null != allReleasesIds && trackReleaseIds.size() != 0) {
                 allReleasesIds.retainAll(trackReleaseIds);
             } else if (0 != trackReleaseIds.size()) {
                 allReleasesIds = trackReleaseIds;
             }
         }
+
+//        System.out.println("mbrnz: !" + allReleasesIds);
 
         if (null == allReleasesIds || 0 == allReleasesIds.size()) {
             System.err.println("strange, no releases found");
@@ -60,7 +64,7 @@ public class MusicBrainz {
                 for (String puidString : puidStrings) {
                     albumTrack.addPuid(new Puid(puidString));
                 }
-                // albumTrack.setYear(release.getEarliestReleaseDate()); // TODO: String for date or int for year?
+                albumTrack.setYear(release.getEarliestReleaseDate());
                 album.addTrack(albumTrack);
                 trackNumber++; // TODO: is it correct? are they in order?
             }
@@ -106,7 +110,12 @@ public class MusicBrainz {
 
     public static Release getReleaseById(String id) throws JMBWSException {
         Query query = new Query();
-        return query.getReleaseById(id, null);
+        ReleaseIncludes includes = new ReleaseIncludes();
+        includes.setArtist(true);
+        includes.setTracks(true);
+        includes.setCounts(true);
+        includes.setReleaseEvents(true);
+        return query.getReleaseById(id, includes);
     }
 
     public static Track getTrackById(String id) throws JMBWSException {
