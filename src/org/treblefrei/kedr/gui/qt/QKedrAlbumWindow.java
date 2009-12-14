@@ -21,6 +21,7 @@ public class QKedrAlbumWindow extends QWidget implements Updatable {
             beginInsertRows(null, 0, album.getTracks().size()-1);
             this.album = album;
             endInsertRows();
+            reset();
         }
         @Override
         public Object data(QModelIndex index, int role) {
