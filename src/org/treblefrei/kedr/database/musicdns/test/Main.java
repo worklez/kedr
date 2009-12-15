@@ -26,11 +26,11 @@ public class Main {
             Track track1 = new Track();
             Track track2 = new Track();
 
-            track1.setFilepath("1.wav");
+            track1.setFilepath("1.mp3");
             track2.setFilepath("2.mp3");
 
             album.addTrack(track1);
-            //album.addTrack(track2);
+            album.addTrack(track2);
 
             //Map<Track, Set<Puid>> puids = PuidFetcher.fetchPuids(album);
             //MusicBrainz.getPuidInfo(puids.get(track1).get(0));
