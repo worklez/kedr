@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagramm>
+  <classes />
+  <packages>
+    <package fqn="org.treblefrei.kedr.gui" x="0.0" y="348.0" />
+    <package fqn="org.treblefrei.kedr.core" x="1054.151515151515" y="0.0" />
+    <package fqn="org.treblefrei.kedr.database.musicbrainz" x="765.4454004329004" y="232.0" />
+    <package fqn="org.treblefrei.kedr.database.musicdns.ofa" x="208.07040043290044" y="86.0" />
+    <package fqn="org.treblefrei.kedr.gui.qt" x="1097.0704004329004" y="464.0" />
+    <package fqn="org.treblefrei.kedr.filesystem" x="1154.4454004329004" y="232.0" />
+    <package fqn="org.treblefrei.kedr.model" x="1012.9848484848485" y="86.0" />
+    <package fqn="org.treblefrei.kedr.database" x="889.0742316017316" y="348.0" />
+    <package fqn="org.treblefrei.kedr.database.musicdns" x="438.44540043290044" y="232.0" />
+    <package fqn="org.treblefrei.kedr.audio" x="345.41666666666674" y="0.0" />
+    <package fqn="org.treblefrei.kedr.settings.xml" x="210.0" y="348.0" />
+    <package fqn="org.treblefrei.kedr.settings" x="161.44540043290044" y="232.0" />
+  </packages>
+  <edges>
+    <edge source="org.treblefrei.kedr.filesystem" target="org.treblefrei.kedr.filesystem" relationship="DEPENDENCY">
+      <point x="-60.25" y="13.0" />
+      <point x="1214.6954004329004" y="278.0" />
+      <point x="1134.4454004329004" y="278.0" />
+      <point x="1134.4454004329004" y="245.0" />
+      <point x="-120.5" y="-0.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicdns" target="org.treblefrei.kedr.database.musicdns" relationship="TO_MANY">
+      <point x="-38.375" y="13.0" />
+      <point x="553.5704004329004" y="288.0" />
+      <point x="408.44540043290044" y="288.0" />
+      <point x="408.44540043290044" y="238.5" />
+      <point x="-153.5" y="-6.5" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicbrainz" target="org.treblefrei.kedr.database" relationship="DEPENDENCY">
+      <point x="81.5" y="13.0" />
+      <point x="1009.9454004329004" y="328.0" />
+      <point x="1007.0742316017316" y="328.0" />
+      <point x="0.0" y="-13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database" target="org.treblefrei.kedr.database.musicbrainz" relationship="DEPENDENCY">
+      <point x="-33.71428571428578" y="-13.0" />
+      <point x="973.3599458874459" y="308.0" />
+      <point x="846.9454004329004" y="308.0" />
+      <point x="-81.5" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.model" target="org.treblefrei.kedr.model" relationship="DEPENDENCY">
+      <point x="-95.90909090909092" y="13.0" />
+      <point x="1022.5757575757575" y="132.0" />
+      <point x="992.9848484848485" y="132.0" />
+      <point x="992.9848484848485" y="105.5" />
+      <point x="-105.5" y="6.5" />
+    </edge>
+    <edge source="org.treblefrei.kedr.settings.xml" target="org.treblefrei.kedr.settings" relationship="DEPENDENCY">
+      <point x="-63.75" y="-13.0" />
+      <point x="273.75" y="328.0" />
+      <point x="293.86206709956707" y="328.0" />
+      <point x="18.91666666666663" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.gui" target="org.treblefrei.kedr.settings" relationship="DEPENDENCY">
+      <point x="0.0" y="-13.0" />
+      <point x="95.0" y="328.0" />
+      <point x="256.0287337662337" y="328.0" />
+      <point x="-18.916666666666686" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database" target="org.treblefrei.kedr.database.musicdns" relationship="DEPENDENCY">
+      <point x="-101.14285714285711" y="-13.0" />
+      <point x="905.9313744588745" y="328.0" />
+      <point x="630.3204004329004" y="328.0" />
+      <point x="38.375" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicdns" target="org.treblefrei.kedr.database" relationship="DEPENDENCY">
+      <point x="115.125" y="13.0" />
+      <point x="707.0704004329004" y="318.0" />
+      <point x="939.6456601731602" y="318.0" />
+      <point x="-67.42857142857144" y="-13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.gui.qt" target="org.treblefrei.kedr.core" relationship="REALIZATION">
+      <point x="91.875" y="-13.0" />
+      <point x="1293.9454004329004" y="444.0" />
+      <point x="1432.490854978355" y="444.0" />
+      <point x="1432.490854978355" y="66.0" />
+      <point x="1228.276515151515" y="66.0" />
+      <point x="74.625" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.filesystem" target="org.treblefrei.kedr.model" relationship="DEPENDENCY">
+      <point x="0.0" y="-13.0" />
+      <point x="1274.9454004329004" y="212.0" />
+      <point x="1176.030303030303" y="212.0" />
+      <point x="57.545454545454504" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.gui.qt" target="org.treblefrei.kedr.database" relationship="DEPENDENCY">
+      <point x="-13.125" y="-13.0" />
+      <point x="1188.9454004329004" y="414.0" />
+      <point x="1066.0742316017318" y="414.0" />
+      <point x="59.0" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicdns" target="org.treblefrei.kedr.database.musicdns.ofa" relationship="DEPENDENCY">
+      <point x="-115.125" y="-13.0" />
+      <point x="476.82040043290044" y="212.0" />
+      <point x="487.2370670995671" y="212.0" />
+      <point x="111.66666666666669" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.audio" target="org.treblefrei.kedr.audio" relationship="DEPENDENCY">
+      <point x="-69.33333333333337" y="13.0" />
+      <point x="380.08333333333337" y="46.0" />
+      <point x="325.41666666666674" y="46.0" />
+      <point x="325.41666666666674" y="13.0" />
+      <point x="-104.0" y="-0.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database" target="org.treblefrei.kedr.database" relationship="DEPENDENCY">
+      <point x="-59.0" y="13.0" />
+      <point x="948.0742316017316" y="394.0" />
+      <point x="869.0742316017316" y="394.0" />
+      <point x="869.0742316017316" y="361.0" />
+      <point x="-118.0" y="-0.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database" target="org.treblefrei.kedr.model" relationship="DEPENDENCY">
+      <point x="33.71428571428578" y="-13.0" />
+      <point x="1040.7885173160175" y="308.0" />
+      <point x="1101.9454004329004" y="308.0" />
+      <point x="1101.9454004329004" y="192.0" />
+      <point x="1118.4848484848485" y="192.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.model" target="org.treblefrei.kedr.database" relationship="DEPENDENCY">
+      <point x="38.36363636363649" y="13.0" />
+      <point x="1156.848484848485" y="212.0" />
+      <point x="1123.9454004329004" y="212.0" />
+      <point x="1123.9454004329004" y="328.0" />
+      <point x="1108.2170887445886" y="328.0" />
+      <point x="101.14285714285711" y="-13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.model" target="org.treblefrei.kedr.core" relationship="DEPENDENCY">
+      <point x="0.0" y="-13.0" />
+      <point x="1118.4848484848485" y="66.0" />
+      <point x="1128.776515151515" y="66.0" />
+      <point x="-24.875" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicbrainz" target="org.treblefrei.kedr.model" relationship="DEPENDENCY">
+      <point x="0.0" y="-13.0" />
+      <point x="928.4454004329004" y="182.0" />
+      <point x="1099.3030303030303" y="182.0" />
+      <point x="-19.181818181818244" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.gui.qt" target="org.treblefrei.kedr.filesystem" relationship="DEPENDENCY">
+      <point x="13.125" y="-13.0" />
+      <point x="1215.1954004329004" y="414.0" />
+      <point x="1335.1954004329004" y="414.0" />
+      <point x="60.25" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.gui.qt" target="org.treblefrei.kedr.gui.qt" relationship="TO_ONE">
+      <point x="-52.5" y="13.0" />
+      <point x="1149.5704004329004" y="510.0" />
+      <point x="1077.0704004329004" y="510.0" />
+      <point x="1077.0704004329004" y="483.5" />
+      <point x="-105.0" y="6.5" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicdns.ofa" target="org.treblefrei.kedr.audio" relationship="DEPENDENCY">
+      <point x="0.0" y="-13.0" />
+      <point x="375.57040043290044" y="66.0" />
+      <point x="449.41666666666674" y="66.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.settings" target="org.treblefrei.kedr.settings" relationship="TO_MANY">
+      <point x="-56.75" y="13.0" />
+      <point x="218.19540043290044" y="288.0" />
+      <point x="131.44540043290044" y="288.0" />
+      <point x="131.44540043290044" y="238.5" />
+      <point x="-113.5" y="-6.5" />
+    </edge>
+    <edge source="org.treblefrei.kedr.gui.qt" target="org.treblefrei.kedr.settings" relationship="DEPENDENCY">
+      <point x="-39.375" y="-13.0" />
+      <point x="1162.6954004329004" y="424.0" />
+      <point x="600.0914069264069" y="424.0" />
+      <point x="600.0914069264069" y="318.0" />
+      <point x="369.5287337662337" y="318.0" />
+      <point x="94.58333333333326" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.gui.qt" target="org.treblefrei.kedr.model" relationship="CREATE">
+      <point x="39.375" y="-13.0" />
+      <point x="1241.4454004329004" y="424.0" />
+      <point x="1405.9454004329004" y="424.0" />
+      <point x="1405.9454004329004" y="202.0" />
+      <point x="1195.2121212121212" y="202.0" />
+      <point x="76.72727272727275" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.gui.qt" target="org.treblefrei.kedr.gui" relationship="REALIZATION">
+      <point x="-65.625" y="-13.0" />
+      <point x="1136.4454004329004" y="434.0" />
+      <point x="142.5" y="434.0" />
+      <point x="47.5" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicdns" target="org.treblefrei.kedr.model" relationship="TO_MANY">
+      <point x="115.125" y="-13.0" />
+      <point x="707.0704004329004" y="172.0" />
+      <point x="1080.121212121212" y="172.0" />
+      <point x="-38.36363636363649" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicdns" target="org.treblefrei.kedr.audio" relationship="DEPENDENCY">
+      <point x="-38.375" y="-13.0" />
+      <point x="553.5704004329004" y="66.0" />
+      <point x="518.75" y="66.0" />
+      <point x="69.33333333333326" y="13.0" />
+    </edge>
+    <edge source="org.treblefrei.kedr.database.musicdns.ofa" target="org.treblefrei.kedr.database.musicdns.ofa" relationship="DEPENDENCY">
+      <point x="-111.66666666666663" y="13.0" />
+      <point x="263.9037337662338" y="132.0" />
+      <point x="188.07040043290044" y="132.0" />
+      <point x="188.07040043290044" y="105.5" />
+      <point x="-167.5" y="6.5" />
+    </edge>
+  </edges>
+  <settings isCamel="false" isColorManagerEnabled="true" isFieldsVisible="false" isConstructorsVisible="false" isMethodsVisible="true" isShowDependencies="true" isShowInnerClasses="false" isVcsFilterEnabled="false" defaultVisibility="public" layout="Hierarchic Group" isPropertiesVisible="false" zoom="1.0" x="716.5" y="265.0" />
+  <SelectedNodes>
+    <node fqn="org.treblefrei.kedr.database.musicbrainz" />
+  </SelectedNodes>
+</ClassDiagramm>
+
