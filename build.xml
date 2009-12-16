@@ -46,6 +46,8 @@
                                             lib/log4j-1.2.14.jar
                                             lib/qtjambi-4.5.2_01.jar
                                             lib/slf4j-api.jar
+											lib/logback-classic.jar
+											lib/logback-core.jar
                                             lib/testng-jdk15.jar
                                             lib/xuggle-xuggler.jar" />
         </manifest>
